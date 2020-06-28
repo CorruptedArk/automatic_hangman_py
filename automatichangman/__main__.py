@@ -197,6 +197,7 @@ def let_player_play() -> None:
         print(f"Guesses: {solution_manager.guess_list}")
         print(f"Incorrect guesses: {solution_manager.get_wrong_guess_count()}")
         guess = input("Enter your next guess: ")
+        solution_manager.is_guess_correct(guess)
         game_over = solution_manager.solution_found() or solution_manager.get_wrong_guess_count() > 5
         wipe_screen()
 
