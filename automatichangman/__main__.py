@@ -1,14 +1,14 @@
 #!/usr/bin/env python3
 
-# automatic_hangman_py is a program designed to play hangman better than any human and allow a human to play as well
+# tic-tac-toe-py is a simple terminal tic tac toe game written in Python
 #   Copyright (C) 2020  Noah Stanford <noahstandingford@gmail.com>
 
-#   automatic_hangman_py is free software: you can redistribute it and/or modify
+#   tic-tac-toe-py is free software: you can redistribute it and/or modify
 #   it under the terms of the GNU General Public License as published by
 #   the Free Software Foundation, either version 3 of the License, or
 #   (at your option) any later version.
 
-#   automatic_hangman_py is distributed in the hope that it will be interesting and fun,
+#   tic-tac-toe-py is distributed in the hope that it will be fun,
 #   but WITHOUT ANY WARRANTY; without even the implied warranty of
 #   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 #   GNU General Public License for more details.
@@ -21,6 +21,7 @@
 import time
 from automatichangman.optimalmachine import OptimalMachine
 from automatichangman.solution_manager import SolutionManager
+from termcolor import colored, cprint
 
 try:
     import importlib.resources as pkg_resources
@@ -28,6 +29,14 @@ except ImportError:
     # Try backported to PY<37 `importlib_resources`.
     import importlib_resources as pkg_resources
 
+GREY = 'grey'
+RED = 'red'
+GREEN = 'green'
+YELLOW = 'yellow'
+BLUE = 'blue'
+MAGENTA = 'magenta'
+CYAN = 'cyan'
+WHITE = 'white'
 
 MAJOR_VERSION = '0'
 MINOR_VERSION = '1'
@@ -130,13 +139,13 @@ def body(wrong_guesses:int) -> str:
     """
 
     switch = {
-        0: body0,
-        1: body1,
-        2: body2,
-        3: body3,
-        4: body4,
-        5: body5,
-        6: body6
+        0: colored(body0, GREEN),
+        1: colored(body1, BLUE),
+        2: colored(body2, CYAN),
+        3: colored(body3, WHITE),
+        4: colored(body4, YELLOW),
+        5: colored(body5, RED),
+        6: colored(body6, RED)
     }
 
     return switch.get(wrong_guesses, "error")
@@ -178,9 +187,9 @@ def let_machine_play() -> None:
     print(f"Guesses: {solution_manager.guess_list}")
     print(f"Incorrect guesses: {solution_manager.get_wrong_guess_count()}")
     if solution_manager.solution_found():
-        print("\nMachine wins!\n")
+        cprint("\nMachine wins!\n", GREEN)
     else:
-        print("\nMachine loses!\n")
+        cprint("\nMachine loses!\n", RED)
     machine.reset()     
     
 def let_player_play() -> None:
@@ -209,9 +218,9 @@ def let_player_play() -> None:
     print(f"Guesses: {solution_manager.guess_list}")
     print(f"Incorrect guesses: {solution_manager.get_wrong_guess_count()}")
     if solution_manager.solution_found():
-        print("\nYou win!\n")
+        cprint("\nYou win!\n", GREEN)
     else:
-        print("\nYou lose!\n")
+        cprint("\nYou lose!\n", RED)
 
 def print_about() -> None:
     """Prints out about and license information"""
