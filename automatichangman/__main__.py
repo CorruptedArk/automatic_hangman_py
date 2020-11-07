@@ -40,7 +40,7 @@ WHITE = 'white'
 
 MAJOR_VERSION = '0'
 MINOR_VERSION = '1'
-MICRO_VERSION = '2'
+MICRO_VERSION = '3'
 VERSION = "{}.{}.{}".format(MAJOR_VERSION, MINOR_VERSION, MICRO_VERSION)
 
 ABOUT = f"""automatic_hangman_py {VERSION} - Fork me at <https://github.com/CorruptedArk/automatic_hangman_py>
