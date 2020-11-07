@@ -18,10 +18,10 @@
 
 """This is the main module. It handles the overarching functionality of the program."""
 
+from termcolor import colored, cprint
 import time
 from automatichangman.optimalmachine import OptimalMachine
 from automatichangman.solution_manager import SolutionManager
-from termcolor import colored, cprint
 
 try:
     import importlib.resources as pkg_resources
