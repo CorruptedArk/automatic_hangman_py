@@ -27,7 +27,7 @@ First install `software-properties-common`
 	
 Then to add the repository to your system, run:
 ```
-sudo sh -c 'echo "deb http://ppa.launchpad.net/corruptedark/ppa/ubuntu focal main\ndeb-src http://ppa.launchpad.net/corruptedark/ppa/ubuntu focal main" > /etc/apt/sources.list.d/corruptedark.list'
+sudo sh -c 'echo "deb http://ppa.launchpad.net/corruptedark/ppa/ubuntu groovy main\ndeb-src http://ppa.launchpad.net/corruptedark/ppa/ubuntu groovy main" > /etc/apt/sources.list.d/corruptedark.list'
 sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E2BA18922C0D6991
 sudo apt update
 ```
