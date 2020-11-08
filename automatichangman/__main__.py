@@ -18,7 +18,6 @@
 
 """This is the main module. It handles the overarching functionality of the program."""
 
-from termcolor import colored, cprint
 import time
 from automatichangman.optimalmachine import OptimalMachine
 from automatichangman.solution_manager import SolutionManager
@@ -29,18 +28,20 @@ except ImportError:
     # Try backported to PY<37 `importlib_resources`.
     import importlib_resources as pkg_resources
 
-GREY = 'grey'
-RED = 'red'
-GREEN = 'green'
-YELLOW = 'yellow'
-BLUE = 'blue'
-MAGENTA = 'magenta'
-CYAN = 'cyan'
-WHITE = 'white'
+GREY = '\033[90m'
+RED = '\033[31m'
+GREEN = '\033[32m'
+YELLOW = '\033[33m'
+BLUE = '\033[34m'
+MAGENTA = '\033[35m'
+CYAN = '\033[36m'
+WHITE = '\033[37m'
+RESET = '\033[0m'
+ESC = chr(27)
 
 MAJOR_VERSION = '0'
 MINOR_VERSION = '1'
-MICRO_VERSION = '4'
+MICRO_VERSION = '5'
 VERSION = "{}.{}.{}".format(MAJOR_VERSION, MINOR_VERSION, MICRO_VERSION)
 
 ABOUT = f"""automatic_hangman_py {VERSION} - Fork me at <https://github.com/CorruptedArk/automatic_hangman_py>
@@ -71,6 +72,14 @@ solution_manager = SolutionManager(DICTIONARY)
 def get_version() -> str:
     """Returns the formatted version string"""
     return VERSION
+
+def colored_string(string:str, color:str) -> str:
+    """Returns a colored string using ANSI escape codes"""
+    return color + string + RESET
+
+def colored_print(string:str, color:str) -> None:
+    """Prints a colored string using ANSI escape codes"""
+    print(color, string, RESET)
 
 def body(wrong_guesses:int) -> str:
     """This function returns the correct ASCII art of the hangman body for a number of wrong guesses"""
@@ -139,20 +148,20 @@ def body(wrong_guesses:int) -> str:
     """
 
     switch = {
-        0: colored(body0, GREEN),
-        1: colored(body1, BLUE),
-        2: colored(body2, CYAN),
-        3: colored(body3, WHITE),
-        4: colored(body4, YELLOW),
-        5: colored(body5, RED),
-        6: colored(body6, RED)
+        0: colored_string(body0, GREEN),
+        1: colored_string(body1, BLUE),
+        2: colored_string(body2, CYAN),
+        3: colored_string(body3, WHITE),
+        4: colored_string(body4, YELLOW),
+        5: colored_string(body5, RED),
+        6: colored_string(body6, RED)
     }
 
     return switch.get(wrong_guesses, "error")
 
 def wipe_screen() -> None:
     """Clears all text from the terminal"""
-    print(chr(27) + "[H" + chr(27) + "[J", end="")
+    print(ESC + "[H" + ESC + "[J", end="")
 
 def let_machine_play() -> None:
     """Runs the hangman loop with the machine as the player"""
@@ -187,9 +196,9 @@ def let_machine_play() -> None:
     print(f"Guesses: {solution_manager.guess_list}")
     print(f"Incorrect guesses: {solution_manager.get_wrong_guess_count()}")
     if solution_manager.solution_found():
-        cprint("\nMachine wins!\n", GREEN)
+        colored_print("\nMachine wins!\n", GREEN)
     else:
-        cprint("\nMachine loses!\n", RED)
+        colored_print("\nMachine loses!\n", RED)
     machine.reset()     
     
 def let_player_play() -> None:
@@ -218,9 +227,9 @@ def let_player_play() -> None:
     print(f"Guesses: {solution_manager.guess_list}")
     print(f"Incorrect guesses: {solution_manager.get_wrong_guess_count()}")
     if solution_manager.solution_found():
-        cprint("\nYou win!\n", GREEN)
+        colored_print("\nYou win!\n", GREEN)
     else:
-        cprint("\nYou lose!\n", RED)
+        colored_print("\nYou lose!\n", RED)
 
 def print_about() -> None:
     """Prints out about and license information"""
