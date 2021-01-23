@@ -175,7 +175,6 @@ def let_machine_play() -> None:
     game_over = False
     while not game_over:
         wipe_screen()
-        #TODO - print out the state of the game
         # print(machine.probabilities)
         print(f"Solution: {solution_manager.solution}")
         print(body(solution_manager.get_wrong_guess_count()))
@@ -188,7 +187,6 @@ def let_machine_play() -> None:
         game_over = solution_manager.solution_found() or solution_manager.get_wrong_guess_count() > 5
         time.sleep(2)
 
-    #TODO - print out the win/loss state
     wipe_screen()
     print(f"Solution: {solution_manager.solution}")
     print(body(solution_manager.get_wrong_guess_count()))
@@ -209,7 +207,6 @@ def let_player_play() -> None:
     
     game_over = False
     while not game_over:
-        #TODO - print out the state of the game 
         print(body(solution_manager.get_wrong_guess_count()))
         print(solution_manager.reveal_text())
         print(f"Guesses: {solution_manager.guess_list}")
@@ -219,7 +216,6 @@ def let_player_play() -> None:
         game_over = solution_manager.solution_found() or solution_manager.get_wrong_guess_count() > 5
         wipe_screen()
 
-    #TODO - print out the win/loss state
     if not solution_manager.solution_found():
         print(f"Solution: {solution_manager.solution}")
     print(body(solution_manager.get_wrong_guess_count()))
